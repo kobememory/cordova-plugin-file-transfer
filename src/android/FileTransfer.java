@@ -54,6 +54,8 @@ import org.json.JSONObject;
 import android.net.Uri;
 import android.os.Build;
 import android.webkit.CookieManager;
+import android.content.Intent;
+import android.content.Context;
 
 public class FileTransfer extends CordovaPlugin {
 
@@ -891,6 +893,8 @@ public class FileTransfer extends CordovaPlugin {
                         file.delete();
                     }
                     context.sendPluginResult(result);
+                    Context _context = webView.getContext();
+                    _context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getAbsolutePath())));
                 }
             }
         });
